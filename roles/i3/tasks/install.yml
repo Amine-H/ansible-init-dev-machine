@@ -1,0 +1,8 @@
+---
+
+- name: Install i3
+  apt:
+    name: i3-wm
+    state: present
+    update_cache: true
+    install_recommends: false

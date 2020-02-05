@@ -1,0 +1,10 @@
+---
+
+  - name: dev-env
+    hosts: all
+    become: yes
+    vars_files:
+      - vars/defaults.yml
+      - vars/vars.yml
+    roles:
+      - i3
