@@ -18,3 +18,6 @@
   template:
     src: "{{ i3_conf_template }}"
     dest: "/home/{{ ansible_user }}/.i3"
+
+- name: Change ownership of ~/.i3 to {{ ansible_user }}
+  file: dest=/home/{{ ansible_user }}/.i3 owner={{ ansible_user }} group={{ ansible_user }} recurse=yes
