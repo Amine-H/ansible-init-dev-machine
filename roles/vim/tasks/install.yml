@@ -1,0 +1,46 @@
+---
+
+- name: Make sure it's a debian machine
+  assert: { that: "ansible_os_family == 'Debian'" }
+
+- name: Install git
+  apt:
+    name: git
+    state: present
+    update_cache: true
+    install_recommends: false
+
+- name: Install vim
+  apt:
+    name: vim
+    state: present
+    update_cache: true
+    install_recommends: false
+
+- name: Create vim config directory
+  file: path=/home/{{ ansible_user }}/.vim state=directory
+
+- name: Create vim autoload directory
+  file: path=/home/{{ ansible_user }}/.vim/autoload state=directory
+
+- name: Create plugged directory
+  file: path=/home/{{ ansible_user }}/.vim/plugged state=directory
+
+- name: Copy vim-plug
+  template:
+    src: "{{ vim_plug_template }}"
+    dest: "/home/{{ ansible_user }}/.vim/autoload/plug.vim"
+
+- name: Copy vim config
+  template:
+    src: "{{ vim_conf_template }}"
+    dest: "/home/{{ ansible_user }}/.vimrc"
+
+- name: Install vim plugins
+  shell: vim +PlugInstall +qall
+
+- name: Change ownership of ~/.vimrc to {{ ansible_user }}
+  file: dest=/home/{{ ansible_user }}/.vimrc owner={{ ansible_user }} group={{ ansible_user }}
+
+- name: Change ownership of ~/.vim to {{ ansible_user }}
+  file: dest=/home/{{ ansible_user }}/.vim owner={{ ansible_user }} group={{ ansible_user }} recurse=yes

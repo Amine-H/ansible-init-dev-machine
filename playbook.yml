@@ -8,3 +8,4 @@
       - vars/vars.yml
     roles:
       - i3
+      - vim
