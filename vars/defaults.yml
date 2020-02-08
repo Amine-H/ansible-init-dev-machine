@@ -1,2 +1,4 @@
 ansible_user: user
 ansible_sudo_pass: hada_mot_de_passe
+
+i3_conf_template: config

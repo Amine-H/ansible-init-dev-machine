@@ -1,8 +1,16 @@
 ---
 
-- name: Install i3
+- name: Install i3-wm, i3status, i3lock, xorg, rofi, fonts-inconsolata
   apt:
-    name: i3-wm
+    name: i3-wm,i3status,i3lock,xorg,rofi,fonts-inconsolata
     state: present
     update_cache: true
     install_recommends: false
+
+- name: Create i3 config directory
+  file: path=/home/{{ ansible_user }}/.i3 state=directory
+
+- name: Copy i3 config
+  template:
+    src: "{{ i3_conf_template }}"
+    dest: "/home/{{ ansible_user }}/.i3"
