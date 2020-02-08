@@ -1,5 +1,9 @@
 ---
 
+- name: Make sure it's a debian machine
+  assert: { that: "ansible_os_family == 'Debian'" }
+
+
 - name: Install i3-wm, i3status, i3lock, xorg, rofi, fonts-inconsolata
   apt:
     name: i3-wm,i3status,i3lock,xorg,rofi,fonts-inconsolata
